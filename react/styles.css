@@ -1,0 +1,113 @@
+.container {
+}
+
+.contactGroup {
+}
+
+.contactItem {
+}
+
+.contactItem,
+.connectItem,
+.menuContainer {
+}
+
+.contactLink,
+.contactButton {
+}
+
+.icon {
+}
+
+.contactText {
+}
+
+.connectGroup {
+}
+
+.connectItem {
+}
+
+.itemTitle {
+}
+
+.itemDescription {
+}
+
+.iconRow {
+}
+
+.iconText {
+}
+
+.modalCloseButton,
+.storeLink {
+}
+
+.storeLink .icon {
+}
+
+.buttonLabel {
+}
+
+.itemRow {
+}
+
+.menuRow {
+}
+
+.menuContainer {
+}
+
+.menuButton {
+}
+
+.menuButtonText {
+}
+
+.menuWindow {
+}
+
+.menuWrapper {
+}
+
+.copyrightRow {
+}
+
+.copyrightText {
+}
+
+.copyrightLink {
+}
+
+.modalOverlay {
+}
+
+.modalContainer {
+}
+
+.modalText {
+}
+
+.modalCloseButton {
+}
+
+.wave {
+}
+
+@keyframes waveAnimation {
+  0% {
+    transform: translate(0, 0) scale(1);
+    background-color: black;
+  }
+
+  50% {
+    transform: translate(-50%, -50%) scale(2.5);
+    background-color: #ec1d24;
+  }
+
+  100% {
+    transform: translate(0, 0) scale(1);
+    background-color: black;
+  }
+}

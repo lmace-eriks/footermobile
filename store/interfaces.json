@@ -1,0 +1,6 @@
+{
+  "footermobile": {
+    "component": "FooterMobile",
+    "composition": "children"
+  }
+}

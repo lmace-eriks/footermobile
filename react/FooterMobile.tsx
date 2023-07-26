@@ -30,6 +30,7 @@ interface MenuObject {
 const FooterMobile: StorefrontFunctionComponent<FooterMobileProps> = ({ menuTitles, children }) => {
   const openGate = useRef(true);
   const childRefs = useRef<any>([]);
+  const modalRef = useRef<any>();
   const [showModal, setShowModal] = useState(false);
   const [currentYear, setCurrentYear] = useState<number>();
   const [menuList, setMenuList] = useState<Array<MenuObject>>([]);
@@ -65,24 +66,39 @@ const FooterMobile: StorefrontFunctionComponent<FooterMobileProps> = ({ menuTitl
     setCurrentYear(thisYear);
   }
 
+  // This is hacky, but the "Chat" component is third party
+  // and this is a best case for the moment solution - LM
   const handleLiveChatClick = () => {
     if (!canUseDOM) return;
 
     const chatBubble: any = document.querySelector("#cloudlink-chat-overlay-contact-us-button");
     chatBubble?.classList.add(styles.wave);
-    setShowModal(true);
+
+    modalRef.current.showModal();
     setTimeout(() => { chatBubble?.classList.remove(styles.wave) }, 500);
   }
 
+  const handleClickBackground = (e: any) => {
+    const clickX = e.clientX;
+    const clickY = e.clientY;
+    const modalBounds = modalRef.current.getBoundingClientRect();
+
+    if (clickX < modalBounds.left || clickX > modalBounds.right || clickY < modalBounds.top || clickY > modalBounds.bottom) {
+      modalRef.current.close();
+    }
+  }
+
+  const handleCloseModal = () => {
+    modalRef.current.close();
+  }
+
   const Modal = () => (
-    <button onClick={() => setShowModal(false)} className={styles.modalOverlay} aria-label="Close Modal">
-      <div className={styles.modalContainer}>
-        <div className={styles.modalText}>
-          Please use the Chat Bubble in the lower right corner of your screen.
-        </div>
-        <div className={styles.modalCloseButton}>Close</div>
+    <dialog ref={modalRef} className={styles.modalContainer} onClick={handleClickBackground} >
+      <div className={styles.modalText}>
+        Please use the Chat Bubble in the lower right corner of your screen.
       </div>
-    </button>
+      <button aria-label="Close Dialog." onClick={handleCloseModal} className={styles.modalCloseButton} >Close</button>
+    </dialog>
   );
 
   const NewsletterSignup = () => (
@@ -118,19 +134,40 @@ const FooterMobile: StorefrontFunctionComponent<FooterMobileProps> = ({ menuTitl
         <div className={styles.contactItem}>
           <a href="tel:9523519148" className={styles.contactLink}>
             <img src={phoneIcon} width={50} height={50} className={styles.icon} />
-            <div className={styles.contactText}>Call Us<br></br>952-351-9148</div>
+            <div className={styles.contactText}>
+              <div className={styles.contactLabel}>
+                Call Us
+              </div>
+              <div className={styles.contactInfo}>
+                952-351-9148
+              </div>
+            </div>
           </a>
         </div>
         <div className={styles.contactItem}>
           <a href="sms:9522435476?&body=I have a question about " className={styles.contactLink}>
             <img src={textIcon} width={50} height={50} className={styles.icon} />
-            <div className={styles.contactText}>Text Us<br></br>952-243-5476</div>
+            <div className={styles.contactText}>
+              <div className={styles.contactLabel}>
+                Text Us
+              </div>
+              <div className={styles.contactInfo}>
+                952-243-5476
+              </div>
+            </div>
           </a>
         </div>
         <div className={styles.contactItem}>
           <a href="mailto:help@eriksbikeshop.com" className={styles.contactLink}>
             <img src={emailIcon} width={50} height={50} className={styles.icon} />
-            <div className={styles.contactText}>Email Us<br></br>help@eriksbikeshop.com</div>
+            <div className={styles.contactText}>
+              <div className={styles.contactLabel}>
+                Email Us
+              </div>
+              <div className={styles.contactInfo}>
+                help@eriksbikeshop.com
+              </div>
+            </div>
           </a>
         </div>
         <div className={styles.contactItem}>
@@ -145,8 +182,10 @@ const FooterMobile: StorefrontFunctionComponent<FooterMobileProps> = ({ menuTitl
           <div className={styles.itemTitle}>Help Center</div>
           <div className={styles.itemDescription}>Let our Experts answer all your questions.</div>
           <div className={styles.iconRow}>
-            <img src={brainTrustIcon} width={50} height={50} className={styles.icon} />
-            <div className={styles.iconText}>Brain Trust</div>
+            <Link href="/customer-service" className={styles.contactLink}>
+              <img src={brainTrustIcon} width={75} height={50} className={styles.icon} />
+              <div className={styles.iconLabel}>Brain Trust</div>
+            </Link>
           </div>
         </div>
         <div className={styles.connectItem}>
@@ -200,7 +239,7 @@ const FooterMobile: StorefrontFunctionComponent<FooterMobileProps> = ({ menuTitl
           <Link href="/privacy" className={styles.copyrightLink}>Privacy Policy</Link>
         </div>
       </div>
-      {showModal && createPortal(<Modal />, document.body)}
+      {canUseDOM && createPortal(<Modal />, document.body)}
     </footer>
   );
 };

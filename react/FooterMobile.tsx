@@ -101,10 +101,6 @@ const FooterMobile: StorefrontFunctionComponent<FooterMobileProps> = ({ menuTitl
     </dialog>
   );
 
-  const NewsletterSignup = () => (
-    <>{children[0]}</>
-  );
-
   const setRef = (element: any, refList: any) => {
     // Conditional prevents filling refLists with null on unmount / remount - LM
     if (refList.length >= menuList.length) return;
@@ -216,7 +212,9 @@ const FooterMobile: StorefrontFunctionComponent<FooterMobileProps> = ({ menuTitl
         </div>
         <div className={styles.connectItem}>
           <div className={styles.itemTitle}>Email Sign Up</div>
-          <NewsletterSignup />
+          <div className={styles.itemDescription}>Love Gear? Sweet! Join Our Email List!</div>
+          {/* Klaviyo script adds their newsletter signup to this <div> */}
+          <div className="klaviyo-form-UMKxiH eriksbikeshop-footermobile-1-x-klaviyo" />
         </div>
       </div>
       <div className={styles.menuRow}>

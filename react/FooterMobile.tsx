@@ -213,8 +213,14 @@ const FooterMobile: StorefrontFunctionComponent<FooterMobileProps> = ({ menuTitl
         <div className={styles.connectItem}>
           <div className={styles.itemTitle}>Email Sign Up</div>
           <div className={styles.itemDescription}>Love Gear? Sweet! Join Our Email List!</div>
-          {/* Klaviyo script adds their newsletter signup to this <div> */}
-          <div className="klaviyo-form-UMKxiH eriksbikeshop-footermobile-1-x-klaviyo" />
+          {/* Klaviyo script adds their newsletter signup to this <div>. 
+          If the form does not render the .newsletterLink will display */}
+          <div className={`${styles.klaviyoSignupFormDiv} klaviyo-form-UMKxiH eriksbikeshop-footermobile-1-x-klaviyo`} />
+          <div className={styles.newsletterLink}>
+            <Link target="_blank" rel="noreferrer" href="https://manage.kmail-lists.com/subscriptions/subscribe?a=WcUHBh&g=U5wtvJ" className={styles.storeLink}>
+              <div className={styles.buttonLabel}>Click Here to Sign Up</div>
+            </Link>
+          </div>
         </div>
       </div>
       <div className={styles.menuRow}>

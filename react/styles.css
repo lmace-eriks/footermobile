@@ -99,6 +99,17 @@
 .modalCloseButton {
 }
 
+.newsletterLink {
+  display: none;
+}
+
+/* Klaviyo's signup form is not designed for SPA use. This is
+an embarassing workaround that will hopefully not be needed
+for too long - LM 12/22/2023 */
+.klaviyoSignupFormDiv:empty + .newsletterLink {
+  display: block;
+}
+
 .wave {
 }
 
